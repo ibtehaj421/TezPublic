@@ -7,5 +7,6 @@ namespace TEZ.Repositories.Interfaces
     {
         Task<UserBase?> GetByEmailAsync(string email);
         Task RegisterUserAsync(UserBase user);
+        Task<int> GetCount();
     }
 }
