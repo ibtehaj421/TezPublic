@@ -12,6 +12,8 @@ builder.Services.AddScoped<IUserService,UserService>();
 builder.Services.AddScoped<IUserRepository,UserRepository>();
 builder.Services.AddScoped<IOrganizationService,OrganizationService>();
 builder.Services.AddScoped<IOrganizationRepository,OrganizationRepository>();
+builder.Services.AddScoped<DriverServices>();
+builder.Services.AddScoped<AdminServices>();
 builder.Services.AddScoped<JwtServices>();
 var jwtKey = builder.Configuration["Jwt:Key"];
 var jwtIssuer = builder.Configuration["Jwt:Issuer"];
