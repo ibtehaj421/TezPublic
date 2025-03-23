@@ -8,13 +8,15 @@ using System.Text;
 public class OrganizationController : ControllerBase {
 
     public IUserService _userService;
-    public OrganizationController(IUserService userService) {
+    public AdminServices _adminServices;
+    public OrganizationController(IUserService userService, AdminServices admin) {
         _userService = userService;
+        _adminServices = admin;
     }
 
     [Authorize]
-    [HttpPost("admin/register")]
-    public string RegisterAdmin([FromBody] Register request) {
-        return "success";
+    [HttpPost("register/admin")]
+    public async Task<string> RegisterAdmin([FromBody] Register request) {
+        return await _adminServices.RegisterAdmin(request);
     }
 }
