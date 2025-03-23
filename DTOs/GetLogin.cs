@@ -9,7 +9,7 @@ public class GetLogin {
     public Role role { get; set; }
     public long orgid { get; set; }
     public int level { get; set; }
-
+    public string? userid { get; set; }
 
     //get and set methods for the users go here.
 
