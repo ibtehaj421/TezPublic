@@ -1,0 +1,6 @@
+@TEZ_HostAddress = http://localhost:5227
+
+GET {{TEZ_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
