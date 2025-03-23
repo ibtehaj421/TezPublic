@@ -33,6 +33,8 @@ namespace TEZ.Repositories.Implementations {
 
         }
 
-
+        public async Task<int> GetCount(){
+            return await _context.UserBases.CountAsync();
+        }
     }
 }
