@@ -15,10 +15,10 @@ public class UserService : IUserService {
         if (exists != null){
             throw new ArgumentException("User already exists");
         }
-        Console.WriteLine(request.name);
-        Console.WriteLine(request.email);
-        Console.WriteLine(request.password);
-        Console.WriteLine(request.role);
+        // Console.WriteLine(request.name);
+        // Console.WriteLine(request.email);
+        // Console.WriteLine(request.password);
+        // Console.WriteLine(request.role);
         UserBase user = new User {
             Name = request.name!,
             Email = request.email!,
@@ -40,14 +40,47 @@ public class UserService : IUserService {
             throw new ArgumentException("Invalid password");
         }
         var token = _jwtServices.GenerateJwtToken(user);
-        var dto = new GetLogin {
+        //var dto;
+        if (user is Admin admin){
+            return new GetLogin {
             id = user.Id,
             name = user.Name,
             email = user.Email,
             password = user.Password,
             token = token,
+            orgid = admin.OrgId,
+            userid = admin.AdminId
+            //role = user.Role
         };
-        return dto;
+            
+        }
+        else if (user is Driver driver){
+            return new GetLogin {
+            id = user.Id,
+            name = user.Name,
+            email = user.Email,
+            password = user.Password,
+            token = token,
+            level = driver.Level,
+            orgid = driver.OrgId,
+           //role = "DRIVER"
+            
+             };
+        }
+        else if( user is User user1){
+            return new GetLogin {
+            //default user type return.
+            id = user1.Id,
+            name = user1.Name,
+            email = user1.Email,
+            password = user1.Password,
+            token = token,
+            role = user1.Role
+        };
+        }
+        return new GetLogin {
+            //default empty object.
+        };
     }
     private Role getRole(string role){
         if (role.Equals("STUDENT")){
@@ -58,7 +91,5 @@ public class UserService : IUserService {
         }
     }
 
-    private string generateAdminID(string name,int id){
-        return name + "_" + id;
-    }
+    
 }
